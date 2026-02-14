@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Be My Valentine</title>
+<style>
+  body{
+    margin:0; min-height:100dvh; display:flex; justify-content:center; align-items:center;
+    background:linear-gradient(135deg,#f3d6df,#ffffff,#7a1f3d33);
+    font-family:'Segoe UI', cursive; overflow:hidden;
+  }
+  h1{font-size:2.6rem;color:#7a1f3d;text-align:center;animation:pulse 1.8s infinite}
+  @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
+
+  .container{text-align:center;position:relative;max-width:90vw}
+
+  .type{border-right:3px solid #7a1f3d;white-space:nowrap;overflow:hidden}
+
+  button{
+    padding:14px 28px;margin:22px;font-size:1.2rem;border:none;border-radius:30px;cursor:pointer;
+    transition:.25s ease;position:relative
+  }
+  #yes{background:#7a1f3d;color:#fff;box-shadow:0 0 15px #7a1f3d88}
+  #no{background:#999;color:#fff;position:absolute}
+
+  .float{position:absolute;font-size:26px;animation:float 7s linear infinite;opacity:.9}
+  @keyframes float{from{transform:translateY(110vh)}to{transform:translateY(-130vh)}}
+
+  .result{display:none;text-align:center}
+  .msg{font-size:2.2rem;color:#7a1f3d;margin-top:15px}
+
+  /* dancing body */
+  .dancer{margin:30px auto;width:140px;animation:bounce .7s infinite alternate}
+  @keyframes bounce{from{transform:translateY(0)}to{transform:translateY(-35px)}}
+
+  .head{width:90px;height:90px;background:#ffe0bd;border-radius:50%;margin:auto;position:relative}
+  .eye{width:10px;height:10px;background:#000;border-radius:50%;position:absolute;top:32px}
+  .eye.left{left:22px}.eye.right{right:22px}
+  .mouth{width:45px;height:20px;border-bottom:4px solid #000;border-radius:0 0 40px 40px;position:absolute;bottom:18px;left:50%;transform:translateX(-50%)}
+
+  .body{width:50px;height:60px;background:#7a1f3d;margin:6px auto;border-radius:15px}
+
+  .arm{width:45px;height:10px;background:#ffe0bd;position:absolute;top:130px;animation:armdance .6s infinite alternate}
+  .arm.left{left:-15px;transform-origin:right center}
+  .arm.right{right:-15px;transform-origin:left center}
+  @keyframes armdance{from{transform:rotate(-35deg)}to{transform:rotate(35deg)}}
+
+  .confetti{position:absolute;font-size:22px;animation:conf 3s linear infinite}
+  @keyframes conf{from{transform:translateY(-10vh)}to{transform:translateY(110vh)}}
+</style>
+</head>
+<body>
+<div class="container" id="main">
+  <h1 class="type" id="type"></h1>
+  <div>
+    <button id="yes">Yes 😍</button>
+    <button id="no">No 😢</button>
+  </div>
+</div>
+
+<div class="result" id="result">
+  <h1 class="msg">💟Great choice my Dearest Nida💟 Your Zahin Loves You The Most 🌻</h1>
+  <div class="dancer">
+    <div class="head">
+      <div class="eye left"></div><div class="eye right"></div><div class="mouth"></div>
+    </div>
+    <div class="body"></div>
+    <div class="arm left"></div><div class="arm right"></div>
+  </div>
+</div>
+
+<iframe id="music" width="0" height="0" style="display:none" src="https://www.youtube.com/embed/E4f1bFEh8Bw?start=88&end=118&autoplay=1&mute=1" allow="autoplay"></iframe>
+
+<script>
+// autoplay music safely after DOM loads
+window.addEventListener('DOMContentLoaded',()=>{
+  const music=document.getElementById('music');
+  if(music){ try{ music.contentWindow?.postMessage('{"event":"command","func":"playVideo","args":""}','*'); }catch(e){} }
+});
+
+// YES
+const yes=document.getElementById('yes');
+yes.onclick=()=>{
+  document.getElementById('main').style.display='none';
+  document.getElementById('result').style.display='block';
+  const frame=document.getElementById('music'); if(frame){ frame.src='https://www.youtube.com/embed/E4f1bFEh8Bw?start=88&end=118&autoplay=1'; }
+  for(let i=0;i<40;i++){const c=document.createElement('div');c.className='confetti';c.innerText='🎉';c.style.left=Math.random()*100+'vw';c.style.animationDelay=Math.random()*3+'s';document.body.appendChild(c);setTimeout(()=>c.remove(),4000)}
+};
+</script>
+<iframe id="music" width="0" height="0" style="display:none" src="https://www.youtube.com/embed/E4f1bFEh8Bw?start=88&end=118&enablejsapi=1" allow="autoplay"></iframe>
+</body>
+</html>
